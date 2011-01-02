@@ -15,7 +15,7 @@ list1 x = map (\n -> (x !! n * 10 + x !! (n+1)) * 10 + x !! (n+2)) [1..7]
 
 list2 = [2,3,5,7,11,13,17]
 
-check x = all id $ zipWith (\x y -> x `mod` y == 0) (list1 x) list2
+check x = and $ zipWith (\x y -> x `mod` y == 0) (list1 x) list2
 
 answer = map arrayToInt $ filter check checkList
 
