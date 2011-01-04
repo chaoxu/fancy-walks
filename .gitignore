@@ -1,5 +1,7 @@
 projecteuler.net/Haskell/*
 !projecteuler.net/Haskell/*.hs
+codeforces.com/*
+!codeforces.com/[0-9]+/*.hs
 
 *.o
 *.in
