@@ -10,4 +10,4 @@ memo limit = arr where
 
 problem_14 = fst $ maximumBy (\x y -> compare (snd x) (snd y)) $ assocs $ memo 1000000
 
---main = print problem_14
+main = print problem_14

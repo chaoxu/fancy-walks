@@ -9,3 +9,5 @@ daysInMonth year month
 days = [(year, month, day) | year <- [1900..2000], month <- [1..12], day <- daysInMonth year month]
 
 problem_19 = length [(year,month,day) | (x,(year,month,day)) <- zip (cycle [1..7]) days, x == 7 && year >= 1901 && day == 1]
+
+main = print problem_19

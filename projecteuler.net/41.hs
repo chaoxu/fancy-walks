@@ -30,4 +30,4 @@ checkList = map arrayToInt $ concatMap (\n -> perm [1..n]) [1..9]
 
 problem_41 = maximum $ filter isPrime checkList
 
---main = print problem_41
+main = print problem_41

@@ -39,4 +39,4 @@ mysolve ps = foldl mplus Nothing $ map (solve ps) $ [lps,lps-1..1]
 
 problem_50 = sum . fromJust $ mysolve targets
 
---main = print problem_50
+main = print problem_50

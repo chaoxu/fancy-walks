@@ -14,3 +14,4 @@ answers limit = [ f lst | len <- [2..limit], lst <- search len 1, check f lst]
 
 problem_30 = sum $ answers 10
 
+main = print problem_30

@@ -31,3 +31,5 @@ arr = listArray (1, limit) $ map isAbundant [1..limit]
 isSum n = any (arr!) [n - x | x <- lst , x + x <= n]
 
 problem_23 = sum . filter (not . isSum) $ [1..limit]
+
+main = print problem_23

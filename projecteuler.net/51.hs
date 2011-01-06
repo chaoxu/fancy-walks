@@ -31,4 +31,4 @@ check = (>=8) . length . filter isPrime
 
 problem_51 = head $ map head $ map (filter isPrime) $ filter check $ filter checkNonEqual checkList
 
---main = print $ problem_51
+main = print $ problem_51

@@ -17,4 +17,4 @@ answer = filter check2 numbers
 
 problem_36 = sum answer
 
---main = print problem_36
+main = print problem_36

@@ -21,4 +21,4 @@ answer = map arrayToInt $ filter check checkList
 
 problem_43 = sum answer
 
---main = print problem_43
+main = print problem_43

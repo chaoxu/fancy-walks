@@ -5,3 +5,5 @@ primes = 2: 3: [5,7..] `minus` foldr union' []
    where union' (q:qs) xs = q : union qs xs
 
 problem_10 = sum $ takeWhile (<=2000000) primes
+
+main = print problem_10

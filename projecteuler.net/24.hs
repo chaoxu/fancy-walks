@@ -10,3 +10,5 @@ perms xs k = x : perms (delete x xs) (k `mod` nums) where
 	x = xs !! (k `div` nums)
 
 problem_24 = perms "0123456789" 999999
+
+main = putStrLn problem_24

@@ -12,4 +12,4 @@ answer = map (read.mapping) $ filter check [1..9999]
 
 problem_38 = maximum answer
 
---main = print problem_38
+main = print problem_38

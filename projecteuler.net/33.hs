@@ -4,8 +4,6 @@ genList range = [(x,y) | x <- range, y <- range, x < y]
 lst1 = genList [1 .. 9]
 lst2 = genList [10 .. 99]
 
-
-
 checkEq (a,b) (c,d) = a * d == b * c
 
 checkDig a b = div b 10 == a || mod b 10 == a
@@ -21,4 +19,4 @@ denominator = product $ map snd answers
 
 problem_33 = denominator `div` gcd numerator denominator
 
---main = print problem_33
+main = print problem_33

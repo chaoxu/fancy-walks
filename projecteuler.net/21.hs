@@ -23,3 +23,5 @@ check n = m /= n && n == sumPdivisors m
 	where m = sumPdivisors n
 
 problem_21 = sum $ filter check [2..10000]
+
+main = print problem_21

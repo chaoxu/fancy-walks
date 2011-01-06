@@ -12,4 +12,4 @@ g n = (expect n) - (toInteger . length $ show n)
 
 problem_316 = sum $ map (g.div (10^16)) [2..999999]
 
---main = print problem_316
+main = print problem_316

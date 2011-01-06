@@ -27,4 +27,4 @@ polySeq seq = scanl (+) (head seq) $ polySeq $ diffSeq seq
 
 problem_45 = head $ filter (checkFunc funcP) $ dropWhile (<=40755) $ polySeq answersTH
 
---main = print $ problem_45
+main = print $ problem_45

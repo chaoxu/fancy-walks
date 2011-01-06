@@ -21,4 +21,4 @@ range = [-999..999]
 
 problem_27 = fst $ maximumBy (comparing snd) [(a * b, testPoly a b 0) | a <- range, b <- range]
 
---main = print problem_27
+main = print problem_27

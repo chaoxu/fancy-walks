@@ -5,4 +5,4 @@ digits = concatMap show [1..]
 
 problem_40 = product $ map (digitToInt.(digits!!)) $ map (\x -> 10^x - 1) [0..6]
 
---main = print problem_40
+main = print problem_40

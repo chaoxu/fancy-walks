@@ -13,3 +13,5 @@ speak x
 		" and " ++ speak (x `mod` 100)
 
 problem_17 = sum $ map (length.(filter isLetter).speak) [1..1000]
+
+main = print problem_17

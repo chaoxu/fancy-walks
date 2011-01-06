@@ -20,6 +20,6 @@ answers = [show a ++ show c ++ show b | a <- targets, b <- targets, a < b, let c
   where
     dig = sort . show
 
-problem_47 = filter (/="148748178147") answers
+problem_49 = filter (/="148748178147") answers
 
---main = print problem_47
+main = putStrLn $ head problem_49

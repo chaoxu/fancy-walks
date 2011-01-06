@@ -28,4 +28,4 @@ answer = drop 4 $ filter isPrime' $ concat $ reverse $ solve [lst0]
 
 problem_37 = sum answer
 
---main = print problem_37
+main = print problem_37

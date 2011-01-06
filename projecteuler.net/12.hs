@@ -22,3 +22,5 @@ divisors2' n
 	| odd n  = divisors2 n ((n+1) `div` 2)
 
 problem_12 = (\n -> n*(n+1) `div` 2) $ head $ dropWhile ((<=500).divisors2') [1..]
+
+main = print problem_12

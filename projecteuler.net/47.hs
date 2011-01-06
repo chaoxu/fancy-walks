@@ -21,4 +21,4 @@ answer m = head $ filter (check m) [1..]
 
 problem_47 = answer 4
 
---main = print problem_47
+main = print problem_47

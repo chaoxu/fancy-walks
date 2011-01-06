@@ -11,4 +11,4 @@ testFactor n (x:xs)
 
 problem_3 = largestFactor (600851475143 :: Integer)
 
-
+main = print problem_3

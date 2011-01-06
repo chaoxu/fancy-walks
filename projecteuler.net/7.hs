@@ -7,3 +7,5 @@ primes = 2: 3: [5,7..] `minus` foldr union' []
 
 
 problem_7 = primes !! 10000
+
+main = print problem_7

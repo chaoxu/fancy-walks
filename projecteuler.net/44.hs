@@ -17,4 +17,4 @@ checkD d = any (\n -> isPentagonal (n + d) && isPentagonal (n + d + n)) $ take 5
 
 problem_44 = head $ filter checkD pentagonal
 
---main = print $ problem_44
+main = print $ problem_44

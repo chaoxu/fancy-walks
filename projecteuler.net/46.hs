@@ -23,4 +23,4 @@ answers = filter check [3,5..]
 
 problem_46 = head answers
 
---main = print problem_46
+main = print problem_46

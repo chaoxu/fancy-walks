@@ -11,6 +11,6 @@ norm str | length str > 10 = norm $ tail str
 norm str | length str < 10 = norm $ '0':str
 norm str = str
 
-problem_47 = norm $ show $ sum $ map (\n -> powMod m n n) [1..1000]
+problem_48 = norm $ show $ sum $ map (\n -> powMod m n n) [1..1000]
 
---main = print $ problem_47
+main = putStrLn $ problem_48

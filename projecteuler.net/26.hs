@@ -16,3 +16,4 @@ arr = map cycleLen [1..999]
 
 problem_26 = (+1).fromJust $ elemIndex (maximum arr) arr
 
+main = print problem_26

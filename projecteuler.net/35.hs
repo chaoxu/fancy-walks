@@ -26,4 +26,4 @@ answer = filter check [1..limit]
 
 problem_35 = length answer
 
---main = print problem_35
+main = print problem_35
