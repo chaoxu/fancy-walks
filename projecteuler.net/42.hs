@@ -16,7 +16,4 @@ countTriWord = length . filter isTriWord
 
 problem_42 = countTriWord . words . map (\x -> if isLetter x then x else ' ') 
 
-main = do
-    file <- openFile "input/words.txt" ReadMode
-    input <- hGetContents file
-    print $ problem_42 input
+main = readFile "input/words.txt" >>= print . problem_42 

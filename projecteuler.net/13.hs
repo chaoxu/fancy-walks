@@ -6,7 +6,4 @@ nums = map read . words
 
 problem_13 = take 10 . show . sum . nums
 
-main = do
-    file <- openFile "input/p13.txt" ReadMode
-    input <- hGetContents file
-    putStrLn $ problem_13 input
+main = readFile "input/p13.txt" >>= putStrLn . problem_13 

@@ -13,7 +13,4 @@ findAnswer gr2 (x,y) (dx,dy) = product [gr2 (x + dx * k) (y + dy * k) | k <- [0.
 
 problem_11 input = maximum [findAnswer (grid2 $ grid input) (x,y) dir | x <- [0..19], y <- [0..19], dir <- directions]
 
-main = do
-    file <- openFile "input/p11.txt" ReadMode
-    input <- hGetContents file
-    print $ problem_11 input
+main = readFile "input/p11.txt" >>= print . problem_11 

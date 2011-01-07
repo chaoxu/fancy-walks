@@ -19,7 +19,4 @@ myMerge (x:xs) = x:myMerge' x xs
 
 problem_18 input = maximum $ foldl1 (\a b -> zipWith (+) (myMerge a) b) $ mySplit $ grid input
 
-main = do
-    file <- openFile "input/p18.txt" ReadMode
-    input <- hGetContents file
-    print $ problem_18 input
+main = readFile "input/p18.txt" >>= print . problem_18 
