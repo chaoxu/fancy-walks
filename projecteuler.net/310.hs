@@ -24,9 +24,10 @@ problem_310 n = single + double + triple
     maxv = maximum $ map sg [0..n]
     len = head $ dropWhile (<=maxv) [2^i | i <- [0..]]
     bnds = (0, len - 1)
+    countlist = accumArray (+) 0 bnds $ zip (map sg [0..n]) (repeat 1)
     trans arr = accumArray (+) 0 bnds inc :: Array Int Integer
       where
-        inc = [(i `xor` sg j, arr ! i) | i <- range bnds, j <- [0..n]]
+        inc = [(i `xor` j, (arr ! i) * (countlist ! j)) | i <- range bnds, j <- range bnds]
     st0 = listArray bnds (1:repeat 0) :: Array Int Integer
     st1 = trans st0
     st3 = trans $ trans st1
