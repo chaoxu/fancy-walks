@@ -16,7 +16,7 @@ divisorsFromF xs = sort . map product . sequence . map (scanl (*) 1) . group $ s
 
 readI = fst . fromJust . BS.readInt
 
---return the of value in a sorted array LEQ than x
+--return the highest value in a sorted array LEQ x
 solve :: UArray Int Int -> Int -> Maybe Int
 solve sorted x = if sorted ! pos <= x then Just (sorted ! pos) else Nothing
   where
