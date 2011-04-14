@@ -8,18 +8,15 @@ import Control.Applicative
 import qualified Data.ByteString.Char8 as BS
 
 --import Control.Parallel
-import qualified GHC.Conc (par, pseq)
-infixr 0 `par`, `pseq`
-par = GHC.Conc.par
-pseq = GHC.Conc.pseq
+import GHC.Conc (par, pseq)
 
 foldMap :: Monoid m => (a -> m) -> [a] -> m
 foldMap f x = foldMap' x (length x)
   where
     foldMap' xs ln
-        | ln == 0    = mempty
-        | ln >= 100  = zs' `par` (ys' `pseq` (ys' `mappend` zs'))
-        | otherwise  = foldl1 mappend $ map f xs
+        | ln == 0   = mempty
+        | ln >= 100 = zs' `par` (ys' `pseq` (ys' `mappend` zs'))
+        | otherwise = foldl1 mappend $ map f xs
       where
         lny     = ln `div` 2
         lnz     = ln - lny
