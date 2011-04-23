@@ -2,3 +2,6 @@
 *.in
 *.out
 *.hi
+*.aux
+*.pdf
+*.log

@@ -1,0 +1,232 @@
+\documentclass$if(fontsize)$[$fontsize$]$endif${article}
+\usepackage{amssymb,amsmath}
+\usepackage{fullpage}
+\usepackage{palatino}
+$if(xetex)$
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{zhfont}
+  \zhspacing
+  \setzhmainfont[BoldFont={Adobe Heiti Std}, ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
+\else
+  \usepackage[mathletters]{ucs}
+  \usepackage[utf8x]{inputenc}
+\fi
+$else$
+\usepackage[mathletters]{ucs}
+\usepackage[utf8x]{inputenc}
+$endif$
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+$endif$
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+$if(lhs)$
+\usepackage{listings}
+\usepackage{color}
+\lstnewenvironment{code}{\vskip\parskip\vskip\parskip\vbox\bgroup}{\egroup\nopagebreak[3]}
+\definecolor{shadecolor}{gray}{.96}
+\definecolor{darkgreen}{rgb}{0.1,0.4,.1}
+\definecolor{newgreen}{rgb}{0,0.5,0}
+\definecolor{darkblue}{rgb}{0,.3,0.7}
+\lstdefinelanguage{lhs} {
+    basicstyle=\ttfamily\scriptsize,
+    sensitive=true,
+    morecomment=[l][\color{newgreen}\ttfamily\scriptsize]{--},
+    morecomment=[s][\color{newgreen}\ttfamily\scriptsize]{\{-}{-\}},
+    morestring=[b]",
+    stringstyle=\color{red},
+    backgroundcolor=\color{shadecolor},
+    showstringspaces=false,
+    showspaces=false,
+    breaklines=true,
+    showtabs=false,
+    tabsize=4,
+    belowskip=0pt,
+    numberstyle=\scriptsize\tiny,
+    numbers=left,
+    stepnumber=1,
+    emph={[1]
+        case, class, data, default, deriving, do, else,
+        foreign, if, import, in, infix, infixl,
+        infixr, instance, let, module, newtype, of,
+        then, type, where, hiding, qualified, 
+    },
+    emphstyle={[1]\color{darkblue}\bfseries},
+    emph={[2]
+        AbsoluteSeek, AppendMode, Array, BlockBuffering, Bool, BufferMode, Char,
+        Complex, Double, Either, FilePath, Float, Int, Integer, IO, IOError, Ix,
+        LineBuffering, Maybe, Ordering, NoBuffering, ReadMode, ReadWriteMode, ReadS,
+        RelativeSeek, SeekFromEnd, SeekMode, ShowS, StdGen, String, Void, Bounded,
+        Enum, Eq, Eval, ExitCode, Floating, Fractional, Functor, Handle, HandlePosn,
+        IOMode, Integral, List, Monad, MonadPlus, MonadZero, Num, Numeric, Ord,
+        Random, RandomGen, Ratio, Rational, Read, Real, RealFloat, RealFrac, Show,
+        System, Prelude, EQ, False, GT, Just, Left, LT, Nothing, Right, WriteMode, True
+    },
+    emphstyle={[2]\color{darkblue}},
+    emph={[3]
+        exitFailure, exitSuccess, abs, accum, accumArray, accumulate, acos, acosh, all,
+        and, any, ap, appendFile, applyM, approxRational, array, asTypeOf, asin, asinh,
+        assocs, atan, atan2, atanh, bounds, bracket, bracket_, break, catch, catMaybes,
+        ceiling, chr, cis, compare, concat, concatMap, conjugate, const, cos, cosh,
+        curry, cycle, decodeFloat, delete, deleteBy, deleteFirstsBy, denominator, digitToInt,
+        div, divMod, drop, dropWhile, either, elem, elems, elemIndex, elemIndices, encodeFloat,
+        enumFrom, enumFromThen, enumFromThenTo, enumFromTo, error, even, exitFailure, exitWith,
+        exp, exponent, fail, filter, filterM, find, findIndex, findIndices, flip,
+        floatDigits, floatRadix, floatRange, floatToDigits, floor, foldl, foldM,
+        foldl1, foldr, foldr1, fromDouble, fromEnum, fromInt, fromInteger, fromIntegral,
+        fromJust, fromMaybe, fromRat, fromRational, fromRealFrac, fst, gcd, genericLength,
+        genericTake, genericDrop, genericSplitAt, genericIndex, genericReplicate, getArgs,
+        getChar, getContents, getEnv, getLine, getProgName, getStdGen, getStdRandom, group,
+        groupBy, guard, hClose, hFileSize, hFlush, hGetBuffering, hGetChar, hGetContents,
+        hGetLine, hGetPosn, hIsClosed, hIsEOF, hIsOpen, hIsReadable, hIsSeekable, hIsWritable,
+        hLookAhead, hPutChar, hPutStr, hPutStrLn, hPrint, hReady, hSeek, hSetBuffering,
+        hSetPosn, head, hugsIsEOF, hugsHIsEOF, hugsIsSearchErr, hugsIsNameErr, hugsIsWriteErr,
+        id, ioError, imagPart, index, indices, init, inits, inRange, insert, insertBy,
+        interact, intersect, intersectBy, intersperse, intToDigit, ioeGetErrorString,
+        ioeGetFileName, ioeGetHandle, isAlreadyExistsError, isAlreadyInUseError,
+        isAlpha, isAlphaNum, isAscii, isControl, isDenormalized, isDoesNotExistError,
+        isDigit, isEOF, isEOFError, isFullError, isHexDigit, isIEEE, isIllegalOperation,
+        isInfinite, isJust, isLower, isNaN, isNegativeZero, isNothing, isOctDigit,
+        isPermissionError, isPrefixOf, isPrint, isSpace, isSuffixOf, isUpper, isUserError,
+        iterate, ixmap, join, last, lcm, length, lex, lexDigits, lexLitChar, liftM,
+        liftM2, liftM3, liftM4, liftM5, lines, listArray, listToMaybe, log, logBase,
+        lookup, magnitude, makePolar, map, mapAccumL, mapAccumR, mapAndUnzipM,
+        mapM, mapM_, mapMaybe, max, maxBound, maximum, maximumBy, maybe,
+        maybeToList, min, minBound, minimum, minimumBy, mkPolar, mkStdGen,
+        mplus, mod, msum, mzero, negate, next, newStdGen, not, notElem, nub,
+        nubBy, null, numerator, odd, openFile, or, ord, otherwise, partition,
+        phase, pi, polar, pred, print, product, properFraction, putChar, putStr,
+        putStrLn, quot, quotRem, random, randomIO, randomR, randomRIO, randomRs,
+        randoms, rangeSize, read, readDec, readFile, readFloat, readHex,
+        readInt, readIO, readList, readLitChar, readLn, readParen, readOct,
+        readSigned, reads, readsPrec, realPart, realToFrac, recip, rem, repeat,
+        replicate, return, reverse, round, scaleFloat, scanl, scanl1, scanr,
+        scanr1, seq, sequence, sequence_, setStdGen, show, showChar, showEFloat,
+        showFFloat, showFloat, showGFloat, showInt, showList, showLitChar, showParen,
+        showSigned, showString, shows, showsPrec, significand, signum, sin, sinh,
+        snd, sort, sortBy, span, split, splitAt, sqrt, stderr, stdin, stdout,
+        strict, subtract, succ, sum, system, tail, tails, take, takeWhile, tan,
+        tanh, toEnum, toInt, toInteger, toLower, toRational, toUpper, transpose,
+        truncate, try, uncurry, undefined, unfoldr, union, unionBy, unless, unlines,
+        until, unwords, unzip, unzip3, unzip4, unzip5, unzip6, unzip7, userError,
+        when, words, writeFile, zero, zip, zip3, zip4, zip5, zip6, zip7, zipWith,
+        zipWithM, zipWithM_, zipWith3, zipWith4, zipWith5, zipWith6, zipWith7    
+    },
+    emphstyle={[3]\color{darkblue}},
+    literate=
+        {/=}{{$$\neq$$}}2
+        {->}{{$$\rightarrow$$}}2 {>=}{{$$\geq$$}}2 {<-}{{$$\leftarrow$$}}2
+        {<=}{{$$\leq$$}}2 {=>}{{$$\Rightarrow$$}}2
+        {>>}{{>>}}2 {>>=}{{>>=}}3 {<=>}{{<=>}}3
+}
+\lstset{language=lhs,firstnumber=last}
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+$if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+$endif$
+$if(tables)$
+\usepackage{array}
+% This is needed because raggedright in table elements redefines \\:
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+$if(subscript)$
+\newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
+$endif$
+$if(url)$
+\usepackage{url}
+$endif$
+$if(graphics)$
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+$endif$
+\usepackage[breaklinks=true,unicode=true,pdfborder={0 0 0}]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(numbersections)$
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$\\$endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+\tableofcontents
+
+$endif$
+$body$
+$if(biblio-files)$
+$if(natbib)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+$for(include-after)$
+
+$include-after$
+$endfor$
+
+\end{document}
