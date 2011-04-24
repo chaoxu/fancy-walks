@@ -7,4 +7,4 @@
 	pdflatex $<
 
 .lhs.html:
-	pandoc -f markdown+lhs -t html -o $@ $< -s --template=../html.template
+	pandoc -f markdown+lhs -t html -o $@ $< -s --template=../html.template --mathml
