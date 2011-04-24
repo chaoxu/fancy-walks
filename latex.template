@@ -2,6 +2,7 @@
 \usepackage{amssymb,amsmath}
 \usepackage{fullpage}
 \usepackage{palatino}
+\usepackage{comment}
 $if(xetex)$
 \usepackage{ifxetex}
 \ifxetex
