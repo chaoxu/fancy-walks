@@ -11,11 +11,11 @@ pfactors n toTest@(x:xs)
 	| n `mod` x == 0 = x:pfactors (n `div` x) toTest
 	| otherwise = pfactors n xs
 
-divisorsFromF = product . (map $ (+1) .length) . group . sort
+divisorsFromF = product . map ((+1).length) . group . sort
 
 divisors n = divisorsFromF $ pfactors n primes
 
-divisors2 x y = divisorsFromF $ (pfactors x primes)++(pfactors y primes)
+divisors2 x y = divisorsFromF $ pfactors x primes ++ pfactors y primes
 
 divisors2' n 
 	| even n = divisors2 (n `div` 2) (n+1)

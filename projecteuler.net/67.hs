@@ -1,6 +1,4 @@
 
-import IO
-
 grid :: String -> [Integer]
 grid = map read . words
 
@@ -11,7 +9,7 @@ mySplit' x n = a:mySplit' b (n+1)
 mySplit str = mySplit' str 1
 
 myMerge' last [] = [last]
-myMerge' last (x:xs) = (max last x):myMerge' x xs
+myMerge' last (x:xs) = max last x:myMerge' x xs
 
 myMerge :: Integral a => [a] -> [a]
 myMerge [] = error "empty list"

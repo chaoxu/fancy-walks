@@ -1,6 +1,8 @@
 
 import Data.Bits
 import Data.List
+import Data.Ord
+import Control.Arrow ((&&&))
 
 mysqrt :: Int -> Int
 mysqrt n = helper n 1 (-1) where 
@@ -14,9 +16,9 @@ list limit = [ (a,b,c)
              , a + b + c <= limit
              ]
 
-answer = map (\x -> (length x, head x)) $ group $ sort $ map (\(a,b,c) -> a + b + c) $ list 1000
+answer = map (length &&& head) $ group $ sort $ map (\(a,b,c) -> a + b + c) $ list 1000
 
-problem_39 = snd $ maximumBy (\x y -> compare (fst x) (fst y)) $ answer
+problem_39 = snd $ maximumBy (comparing fst) answer
 
 main = print problem_39
 

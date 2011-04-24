@@ -5,7 +5,7 @@ import Control.Monad.ST
 import Data.Array.ST
 import Data.Array.Unboxed
 import Data.List
-import Data.Function
+import Data.Ord
 import qualified Data.Sequence as S
 
 genFactor n = runSTUArray genFactorST
@@ -17,19 +17,18 @@ genFactor n = runSTUArray genFactorST
     helper f seq i = do
         val <- readArray f i
         let seq' = if val == 0 then seq S.|> i else seq
-        if val == 0 then writeArray f i i else return ()
+        when (val == 0) $ writeArray f i i
         helper2 f seq' i
         return seq'
     helper2 f seq i = case S.viewl seq of
         S.EmptyL -> return ()
-        h S.:< seq' -> if h * i > n then return () else do
+        h S.:< seq' -> unless (h * i > n) $ do
             writeArray f (h * i) h
-            if i `mod` h == 0 then return () else
-                helper2 f seq' i
+            unless (i `mod` h == 0) $ helper2 f seq' i
             
-getFactors f n = unfoldr (\x -> if x == 1 then Nothing else let d = f ! x in Just (d, div x d)) n 
+getFactors f = unfoldr (\x -> if x == 1 then Nothing else let d = f ! x in Just (d, div x d))
 
-problem_70 = fst $ minimumBy (compare `on` snd) [(n, fromIntegral n / fromIntegral phin) | n <- [2..limit], let phin = phi n, check n phin]
+problem_70 = fst $ minimumBy (comparing snd) [(n, fromIntegral n / fromIntegral phin) | n <- [2..limit], let phin = phi n, check n phin]
   where
     limit = 9999999
     fs = genFactor limit
@@ -37,6 +36,6 @@ problem_70 = fst $ minimumBy (compare `on` snd) [(n, fromIntegral n / fromIntegr
       where
         pfs = nub $ getFactors fs n
         pfs' = map pred pfs
-    check a b = (show a) \\ (show b) == []
+    check a b = (show a \\ show b) == []
 
 main = print problem_70

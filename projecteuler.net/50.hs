@@ -33,7 +33,7 @@ solve ps tlen
     len = length ps
     minsum = sum $ take tlen ps
 
-mysolve ps = foldl mplus Nothing $ map (solve ps) $ [lps,lps-1..1]
+mysolve ps = foldl mplus Nothing $ map (solve ps) [lps,lps-1..1]
   where
     lps = length ps
 

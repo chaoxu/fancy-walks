@@ -13,11 +13,11 @@ pfactors n toTest@(x:xs)
 
 sumDivisorsFromF = product . map helper . group . sort where
 	helper [] = 1
-	helper (x:xs) = (helper xs) * x + 1
+	helper (x:xs) = helper xs * x + 1
 
 sumDivisors n = sumDivisorsFromF $ pfactors n primes
 
-sumPdivisors n = (sumDivisors n) - n
+sumPdivisors n = sumDivisors n - n
 
 check n = m /= n && n == sumPdivisors m
 	where m = sumPdivisors n

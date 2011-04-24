@@ -4,7 +4,7 @@ import Data.List hiding (union)
 import Data.List.Ordered (minus,union)
 import Data.Int
 import Data.Maybe
-import Data.Function
+import Data.Ord
 
 primes :: [Int]
 primes = 2: 3: [5,7..] `minus` foldr union' []
@@ -21,11 +21,7 @@ isPrime = test primes
         | mod n x == 0 = False
         | otherwise = test xs n
 
-solve n = case tryn of
-    Nothing -> solve (n * 2)
-    Just r -> r
-  where
-    tryn = try n
+solve n = fromMaybe (solve (n * 2)) (try n)
 
 con :: Int -> Int -> Int
 con a b = read $ shows b $ show a
@@ -33,7 +29,7 @@ con a b = read $ shows b $ show a
 check :: Int -> Int -> Bool
 check a b = isPrime (con a b) && isPrime (con b a)
 
-try n = listToMaybe $ sortBy (compare `on` sum)
+try n = listToMaybe $ sortBy (comparing sum)
       [ [a,b,c,d,e]
       | let pa = takeWhile (<=n) primes
       , a <- pa
@@ -49,4 +45,4 @@ try n = listToMaybe $ sortBy (compare `on` sum)
 
 problem_60 = sum $ solve 1000
 
-main = print $ problem_60
+main = print problem_60

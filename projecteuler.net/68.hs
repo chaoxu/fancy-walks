@@ -1,6 +1,6 @@
 
 import Data.List
-import Data.Function
+import Data.Ord
 import Data.Maybe
 
 rotate arr = tail arr ++ [head arr]
@@ -27,7 +27,7 @@ genDigit (inner, outer) =
   where
     inner' = rotate inner
     tuples = zipWith3 (\x y z -> [x,y,z]) outer inner inner'
-    max_tuple = minimumBy (compare `on` head) tuples
+    max_tuple = minimumBy (comparing head) tuples
 
 problem_68 = maximum $ nub . sort $ filter ((==16).length) $ map (concatMap show . genDigit) $ nub . sort $ list
 

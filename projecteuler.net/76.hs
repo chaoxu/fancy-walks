@@ -10,7 +10,7 @@ solve n = go False 1 1
     go _ sum _ | sum == n= 1
     go True sum num = memo ! (sum,num)
     go False sum num = go True (sum+1) (num+1) + go True (sum+num) num
-    memo = array memo_range [(i,go False (fst i) (snd i)) | i <- range memo_range]
+    memo = array memo_range [(i, uncurry (go False) i) | i <- range memo_range]
 
 problem_76 = solve 100 - 1
 

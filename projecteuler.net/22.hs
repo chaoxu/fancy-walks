@@ -1,7 +1,6 @@
 
 import Data.Char
 import Data.List
-import IO
 
 solve names = sum $ zipWith score [1..] (sort names)	
   where

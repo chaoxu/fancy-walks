@@ -11,7 +11,7 @@ mix xs = head $ filter (\k -> not (checklist!k)) [0..]
     checklist = accumArray (||) False (0, n) $ zip (filter (<=n) xs) (repeat True)
 
 -- generate the 'SG' function for [0..n]
-spragueGrundy :: Int -> (Int -> Int)
+spragueGrundy :: Int -> Int -> Int
 spragueGrundy n = (arr !)
   where
     bnds = (0, n)

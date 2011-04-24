@@ -9,7 +9,7 @@ problem_61 = sum . head $ concatMap solve $ permutations [4..8]
 
 solve xs = concat [map (p:) $ search (div p 100) (mod p 100) xs | p <- list' 3]
 
-search h t [] = if h == t then [[]] else []
+search h t [] = [[] | h == t]
 search h t (x:xs) = concat [map (p:) $ search h (mod p 100) xs | p <- list' x, div p 100 == t]
 
-main = print $ problem_61
+main = print problem_61

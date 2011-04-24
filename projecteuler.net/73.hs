@@ -5,15 +5,13 @@ import Control.Monad.ST
 import Data.Array.ST
 import Data.Array.Unboxed
 import Data.List
-import Data.Function
 import qualified Data.Sequence as S
 
 gen n func = runSTUArray genST
   where
     genST = do
         f <- newArray (1, n) 0 :: ST s (STUArray s Int Int)
-        forM_ [1..n] $ \i -> do
-            writeArray f i (func i)
+        forM_ [1..n] $ \i -> writeArray f i (func i)
         forM_ [1..n] $ \i -> do
             vi <- readArray f i
             forM_ [i*2,i*3..n] $ \j -> do

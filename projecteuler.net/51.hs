@@ -23,12 +23,12 @@ addDigit' dig (x:xs) = (x*10+dig):addDigit' (dig+1) xs
 
 checkList0 = [1,2,3,4,5,6,7,8,9] : map (replicate 10) [1..9]
 
-checkList = checkList0 ++ concatMap (\n -> addDigit' (10 - length n) n : map (\m -> addDigit m n) [0..9]) checkList 
+checkList = checkList0 ++ concatMap (\n -> addDigit' (10 - length n) n : map (`addDigit` n) [0..9]) checkList 
 
 checkNonEqual (x:y:_) = x /= y
 
 check = (>=8) . length . filter isPrime 
 
-problem_51 = head $ map head $ map (filter isPrime) $ filter check $ filter checkNonEqual checkList
+problem_51 = head $ map (head . filter isPrime) $ filter check $ filter checkNonEqual checkList
 
-main = print $ problem_51
+main = print problem_51

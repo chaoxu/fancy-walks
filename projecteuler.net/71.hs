@@ -1,9 +1,8 @@
 
-try (p,q) n (a,b) (c,d) = 
-    if bd > n then (a,b) else
-        if ac * q < p * bd 
-            then try (p,q) n (ac,bd) (c,d)
-            else try (p,q) n (a,b) (ac,bd)
+try (p,q) n (a,b) (c,d)
+    | bd > n          = (a,b)
+    | ac * q < p * bd = try (p,q) n (ac,bd) (c,d)
+    | otherwise       = try (p,q) n (a,b) (ac,bd)
   where
     ac = a + c
     bd = b + d

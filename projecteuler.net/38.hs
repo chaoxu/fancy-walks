@@ -3,8 +3,8 @@ import Data.List
 
 check n = (=="123456789").sort $ mapping n
 
-mapping n = concat . map show $ 
-            last $ takeWhile (all ((==[]).tail).group.sort.concat.map show) $ 
+mapping n = concatMap show $ 
+            last $ takeWhile (all ((==[]).tail).group.sort.concatMap show) $ 
             inits [n,n+n..]
 
 answer :: [Integer]

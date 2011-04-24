@@ -8,13 +8,13 @@ limit = 3000000
 
 factorial :: Int -> Int
 factorial n = product [1..n]
-fact_cache = array (0,9) [(i,factorial i) | i <- [0..9]]
-factorial' = (fact_cache !)
+factCache = array (0,9) [(i,factorial i) | i <- [0..9]]
+factorial' = (factCache !)
 
 next :: Int -> Int
 next = sum . map (factorial'.digitToInt) . show 
-next_cache = array (1,limit) [(i, next i) | i <- [1..limit]]
-next' = (next_cache !)
+nextCache = array (1,limit) [(i, next i) | i <- [1..limit]]
+next' = (nextCache !)
 
 check limit n = go 0 n empty
   where

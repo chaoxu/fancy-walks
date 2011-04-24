@@ -1,6 +1,4 @@
 
-import IO
-
 nums :: String -> [Integer]
 nums = map read . words
 

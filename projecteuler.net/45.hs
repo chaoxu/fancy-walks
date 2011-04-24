@@ -13,7 +13,7 @@ funcT n = n * (n + 1) `div` 2
 funcP n = n * (3 * n - 1) `div` 2
 funcH n = n * (2 * n - 1)
 
-answersTH = filter (\n -> checkFunc funcT n && checkFunc funcH n) $ [1..20]
+answersTH = filter (\n -> checkFunc funcT n && checkFunc funcH n) [1..20]
 
 diffSeq :: Num a => [a] -> [a]
 diffSeq [] = error "diffSeq: list must be non-empty"
@@ -27,4 +27,4 @@ polySeq seq = scanl (+) (head seq) $ polySeq $ diffSeq seq
 
 problem_45 = head $ filter (checkFunc funcP) $ dropWhile (<=40755) $ polySeq answersTH
 
-main = print $ problem_45
+main = print problem_45

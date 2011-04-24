@@ -3,7 +3,7 @@ import qualified Data.Map as M
 import Data.Maybe
 import Data.List
 
-type MyMap = M.Map [Char] Int
+type MyMap = M.Map String Int
 
 limit = 5 :: Int
 

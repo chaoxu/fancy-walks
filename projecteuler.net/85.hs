@@ -1,11 +1,11 @@
 
-import Data.Function
+import Data.Ord
 import Data.List
 import Data.Maybe
 
 target = 2000000
 
-problem_85 = (\(x,y) -> find x * find y) $ snd $ minimumBy (on compare $ abs . (target-) . fst) $ solve nums (reverse nums)
+problem_85 = (\(x,y) -> find x * find y) $ snd $ minimumBy (comparing $ abs . (target-) . fst) $ solve nums (reverse nums)
   where
     nums = [n * (n + 1) `div` 2 | n <- [1..2000]]
     find n = 1 + fromJust (elemIndex n nums)

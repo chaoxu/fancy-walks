@@ -5,7 +5,7 @@ func (a,b) = (b'+a',a')
 
 lst = take 1000 $ iterate func (3,2)
 
-check (a,b) = (length $ show a) > (length $ show b)
+check (a,b) = length (show a) > length (show b)
 
 problem_57 = length $ filter check lst
 

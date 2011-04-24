@@ -1,6 +1,4 @@
 
-import IO
-
 grid :: String -> [Integer]
 grid rawString = map read $ words rawString
 

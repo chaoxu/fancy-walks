@@ -1,6 +1,6 @@
 
-isPalindrome :: Eq(a) => [a] -> Bool
-isPalindrome a = all (\a -> ((fst a) == (snd a))) (zip a (reverse a))
+isPalindrome :: Eq a => [a] -> Bool
+isPalindrome a = all (uncurry (==)) (zip a (reverse a))
 
 range = [100..999]
 

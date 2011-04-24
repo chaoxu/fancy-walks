@@ -19,7 +19,7 @@ isPrime = test primes
 isPrime' n = isPrime n && (n < 10 || isPrime' (read.tail$show n))
 
 lst0 = [2,3,5,7]
-next lst = concatMap (\x -> [x' | y <- [1..9], let x' = x * 10 + y, isPrime x']) lst
+next = concatMap (\x -> [x' | y <- [1..9], let x' = x * 10 + y, isPrime x']) 
 
 answer = drop 4 $ filter isPrime' $ concat $ reverse $ solve [lst0]
     where

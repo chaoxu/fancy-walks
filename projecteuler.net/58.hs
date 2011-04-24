@@ -27,4 +27,4 @@ solve c d (x:xs)
 
 problem_58 = solve 1 0 [3,5..]
 
-main = print $ problem_58
+main = print problem_58

@@ -12,6 +12,6 @@ speak x
 	| otherwise = one !! (x `div` 100) ++ " hundred" ++ if x `mod` 100 == 0 then "" else
 		" and " ++ speak (x `mod` 100)
 
-problem_17 = sum $ map (length.(filter isLetter).speak) [1..1000]
+problem_17 = sum $ map (length.filter isLetter.speak) [1..1000]
 
 main = print problem_17
