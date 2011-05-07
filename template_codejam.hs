@@ -22,6 +22,7 @@ import Data.IntMap (IntMap)
 import qualified Data.IntMap as IntMap
 import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
+import qualified Data.Foldable as F
 import Data.Tree
 import Data.Graph
 
