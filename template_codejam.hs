@@ -38,5 +38,7 @@ parseInput = do
 
 main = do
     input <- evalState parseInput <$> BS.getContents
-    forM_ (zip [1..] input) $ \(cas, (a, b)) -> do
-        putStrLn $ "Case #" ++ show cas ++ ": " ++ show (a + b)
+    forM_ (zip [1..] input) $ \(cas, params) -> do
+        putStrLn $ "Case #" ++ show cas ++ ": " ++ show (solve params)
+
+solve (a, b) = a + b
