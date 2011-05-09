@@ -33,11 +33,9 @@ parseInput = do
     replicateM cas $ do
         n <- readInt
         replicateM n $ do
-            x1 <- readInt
-            y1 <- readInt
-            x2 <- succ <$> readInt
-            y2 <- succ <$> readInt
-            return ((x1, x2), (y1, y2))
+            px <- (,) <$> readInt <*> readInt
+            py <- (,) <$> (succ <$> readInt) <*> (succ <$> readInt)
+            return (px, py)
   where
     readInt = state $ fromJust . BS.readInt . BS.dropWhile isSpace
     readString = state $ BS.span (not . isSpace) . BS.dropWhile isSpace
@@ -47,57 +45,26 @@ main = do
     forM_ (zip [1..] input) $ \(cas, params) -> do
         putStrLn $ "Case #" ++ show cas ++ ": " ++ show (solve params)
 
-solve a = finishDeath
+touch2D ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = touch1D (x1, x2) (x3, x4) && touch1D (y1,y2) (y3,y4)
+
+touch1D (l1,r1) (l2,r2) = l1 <= r2 && l2 <= r1
+
+touch2Dstrict (a,b) (c,d) = touch2D (a,b) (c,d) && a /= d && b /= c
+
+solve a = maximum $ map solveComponment comps
   where
-    uniqueCord v = Set.toList . Set.fromList $ map fst v ++ map snd v
-    xs = uniqueCord $ map fst a
-    ys = uniqueCord $ map snd a
+    n = length a
+    arr = listArray (1,n) a
+    graph = buildG (1,n) [ (x, y)
+                         | x <- [1..n]
+                         , y <- [1..n]
+                         , touch2Dstrict (arr ! x) (arr ! y)
+                         ]
 
-    arrX = listArray (1,length xs) xs
-    arrY = listArray (1,length ys) ys
-    mapX = IntMap.fromList $ zip xs [1..]
-    mapY = IntMap.fromList $ zip ys [1..]
+    comps = map (map (arr!) . F.toList) $ components graph
 
-    events = accumArray (flip (:)) [] (bounds arrX) $ concat [ [ (x1', (y1', y2', 1)), (x2', (y1', y2', -1))]
-                                                             | ((x1, x2), (y1, y2)) <- a
-                                                             , let x1' = mapX <!> x1
-                                                             , let x2' = mapX <!> x2
-                                                             , let y1' = mapY <!> y1
-                                                             , let y2' = mapY <!> y2
-                                                             ]
-
-    scanLine arr lst = accum (+) arr [ (y, delta)
-                                     | (y1, y2, delta) <- lst
-                                     , y <- [y1 .. y2-1]
-                                     ]
-
-    bnds = ((1,1), (length xs,length ys))
-    
-    raw = listArray bnds [elem > 0 | row <- rows, elem <- row]
+    solveComponment xs = maxX + maxY - starting - 1
       where
-        emptyArray = listArray (1, length ys) (repeat 0)
-        rowsArr = tail $ scanl scanLine emptyArray $ map snd $ assocs events
-        rows = map (map snd . assocs) rowsArr
-
-    growed = listArray bnds [ here || upper && left
-                            | (x,y) <- range bnds
-                            , let upper = x > 1 && raw ! (x - 1, y)
-                            , let left = y > 1 && raw ! (x, y - 1)
-                            , let here = raw ! (x, y)
-                            ]
-
-    startDeath = listArray bnds [ if growed ! (x,y) then upperValue `max` leftValue else 0
-                                | (x, y) <- range bnds
-                                , let upper = x > 1 && growed ! (x - 1, y)
-                                , let left = y > 1 && growed ! (x, y - 1)
-                                , let upperValue = if upper then arrX ! x - arrX ! (x - 1) + startDeath ! (x - 1, y) else 0
-                                , let leftValue = if left then arrY ! y - arrY ! (y - 1) + startDeath ! (x, y - 1) else 0
-                                ]
-    
-    finishDeath = maximum [ if growed ! (x-1, y-1) then start + (deltaX + deltaY - 1) else 0
-                          | (x, y) <- range bnds
-                          , x > 1 && y > 1
-                          , let start = startDeath ! (x - 1, y - 1)
-                          , let deltaX = arrX ! x - arrX ! (x - 1)
-                          , let deltaY = arrY ! y - arrY ! (y - 1)
-                          ]
+        starting = minimum $ map (uncurry (+).fst) xs
+        maxX = maximum $ map (fst.snd) xs
+        maxY = maximum $ map (snd.snd) xs
