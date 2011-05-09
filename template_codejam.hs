@@ -34,6 +34,7 @@ parseInput = do
         return (a, b)
   where
     readInt = state $ fromJust . BS.readInt . BS.dropWhile isSpace
+    readInteger = state $ fromJust . BS.readInteger . BS.dropWhile isSpace
     readString = state $ BS.span (not . isSpace) . BS.dropWhile isSpace
 
 main = do
