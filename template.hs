@@ -23,7 +23,6 @@ import qualified Data.IntMap as IntMap
 import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
 import qualified Data.Foldable as F
-import Data.Tree
 import Data.Graph
 
 parseInput = do 
@@ -32,7 +31,10 @@ parseInput = do
     return (n, s)
   where
     readInt = state $ fromJust . BS.readInt . BS.dropWhile isSpace
+    readInteger = state $ fromJust . BS.readInteger . BS.dropWhile isSpace
     readString = state $ BS.span (not . isSpace) . BS.dropWhile isSpace
+    readLine = state $ BS.span (not . isEoln) . BS.dropWhile isEoln
+    isEoln ch = ch == '\r' || ch == '\n'
 
 main = do
     (n, s) <- evalState parseInput <$> BS.getContents
