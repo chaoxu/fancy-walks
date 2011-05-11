@@ -49,7 +49,9 @@ type DGraph k v = Array k [(k,v)]
 type Expand gk gv k v = DGraph gk gv -> k -> v -> [(k, v)]
 
 buildGraph :: Ix k => (k, k) -> [(k, (k, v))] -> DGraph k v
-buildGraph bnds edges = accumArray (flip (:)) [] bnds edges
+buildGraph bnds edges = accumArray upd [] bnds edges
+  where
+    upd xs p@(x,y) = x `seq` y `seq` (p:xs)
 
 shortestPath :: (Ix gk, Ix k, Ord v, Bounded v) => DGraph gk gv -> Expand gk gv k v -> (k,k) -> k -> v -> Array k v
 shortestPath graph expand bnds src sdis = runSTArray $ do
