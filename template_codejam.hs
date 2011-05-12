@@ -24,6 +24,7 @@ import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
 import qualified Data.Foldable as F
 import Data.Graph
+import Control.Parallel.Strategies
 
 parseInput = do 
     cas <- readInt
@@ -40,7 +41,8 @@ parseInput = do
 
 main = do
     input <- evalState parseInput <$> BS.getContents
-    forM_ (zip [1..] input) $ \(cas, params) -> do
-        putStrLn $ "Case #" ++ show cas ++ ": " ++ show (solve params)
+    let output = parMap rdeepseq solve input
+    forM_ (zip [1..] output) $ \(cas, result) -> do
+        putStrLn $ "Case #" ++ show cas ++ ": " ++ show result
 
 solve (a, b) = a + b
