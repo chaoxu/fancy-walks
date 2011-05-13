@@ -37,11 +37,14 @@ parseInput = do
     readLine = state $ BS.span (not . isEoln) . BS.dropWhile isEoln
     isEoln ch = ch == '\r' || ch == '\n'
 
-main = do
-    (n, s) <- evalState parseInput <$> BS.getContents
-    print $ replicate n s
+main = BS.putStr =<< solve . evalState parseInput <$> BS.getContents
 
---{{{ Start of a minimal State Monad
+solve (n, s) = BS.unlines $ replicate n s
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
 class (Monad m) => MonadState s m | m -> s where
 	get :: m s
 	put :: s -> m ()
@@ -90,4 +93,3 @@ withState :: (s -> s) -> State s a -> State s a
 withState f m = State $ runState m . f
 
 state = State
---}}} end of a minimal State Monad
