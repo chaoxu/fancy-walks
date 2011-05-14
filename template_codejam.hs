@@ -20,7 +20,7 @@ import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.IntMap (IntMap)
 import qualified Data.IntMap as IntMap
-import Data.Sequence (Seq)
+import Data.Sequence (Seq, (<|), (|>), (><), ViewL(..), ViewR(..))
 import qualified Data.Sequence as Seq
 import qualified Data.Foldable as F
 import Data.Graph
