@@ -4,7 +4,8 @@
 import Data.List
 import Data.Maybe
 import Data.Char
-import Data.Array
+import Data.Array.IArray
+import Data.Array.Unboxed (UArray)
 import Data.Int
 import Data.Ratio
 import Data.Bits
