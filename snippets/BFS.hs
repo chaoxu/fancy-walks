@@ -1,16 +1,17 @@
 
+import Data.Maybe
 import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
 
 import Data.Hashable
 import qualified Data.HashMap.Lazy as HM
 
-bfs :: (Eq s, Hashable s) => s -> s -> (s -> [s]) -> Maybe [s]
-bfs source target expand = go (HM.singleton source [source]) (Seq.singleton source)
+bfs :: (Eq s, Hashable s) => s -> (s -> [s]) -> s -> Maybe [s]
+bfs source expand target = HM.lookup target pathMap
   where
+    pathMap = go (HM.singleton source [source]) (Seq.singleton source)
     go hashMap queue
-        | Seq.null queue = Nothing
-        | s == target    = Just paths
+        | Seq.null queue = hashMap
         | otherwise      = go hashMap' queue'
       where
         (s Seq.:< qtail) = Seq.viewl queue
