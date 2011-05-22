@@ -1,8 +1,9 @@
 
 import Data.Maybe
-import Data.Sequence (Seq)
+import Data.Sequence (Seq, (<|), (|>), (><), ViewL(..), ViewR(..))
 import qualified Data.Sequence as Seq
 
+-- cabal install unordered-containers
 import Data.Hashable
 import qualified Data.HashMap.Lazy as HM
 
@@ -14,9 +15,9 @@ bfs source expand target = HM.lookup target pathMap
         | Seq.null queue = hashMap
         | otherwise      = go hashMap' queue'
       where
-        (s Seq.:< qtail) = Seq.viewl queue
+        (s :< qtail) = Seq.viewl queue
         paths = fromJust $ HM.lookup s hashMap
         ts = filter (\k -> isNothing $ HM.lookup k hashMap) $ expand s
         hashMap' = foldl (\map t -> HM.insert t (t:paths) map) hashMap ts
-        queue' = qtail Seq.>< Seq.fromList ts
+        queue' = qtail >< Seq.fromList ts
 
