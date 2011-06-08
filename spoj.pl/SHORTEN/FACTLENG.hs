@@ -1,0 +1,1 @@
+main=interact$unlines.map(show.z.read).tail.lines;z n|n<2=1|1>0=ceiling$(log(2*pi*n)/2+n*log n-n)/log 10
