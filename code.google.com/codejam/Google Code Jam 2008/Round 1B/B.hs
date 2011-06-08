@@ -25,6 +25,7 @@ import qualified Data.Sequence as Seq
 import qualified Data.Foldable as F
 import Data.Graph
 import Control.Parallel.Strategies
+
 import Control.Monad.ST
 import Data.Array.ST
 
@@ -59,7 +60,7 @@ generatePrimes n = runST $ do
     filterM (readArray isPrime) [2..n]
 
 solve :: (Int64, Int64, Int) -> Int
-solve (a, b, p) = length $ components graph
+solve (a, b, p) = compsNum
   where
     primes = dropWhile (<p) $ generatePrimes (fromIntegral $ b - a + 1)
 
@@ -74,4 +75,35 @@ solve (a, b, p) = length $ components graph
             , let h = head lst
             , t <- tail lst
             ]
-    graph = buildG (0, fromIntegral $ b - a) edges
+    compsNum = countComponents (0, fromIntegral $ b - a) edges
+
+type UnionFind s = STUArray s Int Int
+
+buildUF :: (Int, Int) -> ST s (UnionFind s)
+buildUF bnds = newArray bnds (-1)
+
+findUF :: UnionFind s -> Int -> ST s Int
+findUF uf a = do
+    fa <- readArray uf a
+    if fa == -1
+      then return a
+      else do
+        ret <- findUF uf fa
+        writeArray uf a ret
+        return ret
+
+mergeUF :: UnionFind s -> Int -> Int -> ST s Bool
+mergeUF uf a b = do
+    fa <- findUF uf a
+    fb <- findUF uf b
+    if fa == fb
+      then return False
+      else do
+        writeArray uf fa fb
+        return True
+
+countComponents :: (Int, Int) -> [(Int, Int)] -> Int
+countComponents bnds edges = runST $ do
+    uf <- buildUF bnds
+    len <- length <$> filterM (uncurry (mergeUF uf)) edges
+    return (snd bnds - fst bnds + 1 - len)
