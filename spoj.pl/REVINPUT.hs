@@ -1,1 +1,1 @@
-z(n:b)=concatMap(replicate$read n)b;main=interact$reverse.unwords.z.words
+z(n:b)=unwords[x|x<-b,y<-[1..read n]];main=interact$reverse.z.words
