@@ -1,0 +1,1 @@
+r,n;main(z){for(;n?r+=n:~scanf("%d",&n,r=~z?z--:!printf("%d ",r));)n/=5;}

@@ -6,7 +6,6 @@
 *.pdf
 *.html
 *.log
-*.c
 *.java
 *.cpp
 *~
