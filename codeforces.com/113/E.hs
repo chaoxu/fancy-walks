@@ -48,9 +48,7 @@ add0 len str | length str > len = replicate len 'F'
 add0 len str | length str < len = replicate (len - length str) '0' ++ str
 add0 len str = str
 
-maxn = 16 :: Int
-
-solveCase (h, m) k (h', m') = searchH (0, False, False, 0, 0)
+solveCase (h, m) k (h', m') = searchH (0, False, False, 0)
   where
     hUpper = listArray (0, hLen - 1) $ map digitToInt $ show (h - 1) :: UArray Int Int
     mUpper = listArray (0, mLen - 1) $ map digitToInt $ show (m - 1) :: UArray Int Int
@@ -61,51 +59,44 @@ solveCase (h, m) k (h', m') = searchH (0, False, False, 0, 0)
     hLen = length $ show (h - 1)
     mLen = length $ show (m - 1)
 
-    searchH :: (Int, Bool, Bool, Int, Int) -> Integer
+    hNonZero = length $ filter (/='0') $ show (h - 1)
+    mNonZero = length $ filter (/='0') $ show (m - 1)
+
+    searchH :: (Int, Bool, Bool, Int) -> Integer
     searchH = (cache!)
       where
-        bnds = ((0, False, False, 0, 0), (maxn, True, True, maxn, maxn))
-        cache = listArray bnds $ map go $ range bnds :: Array (Int, Bool, Bool, Int, Int) Integer
+        bnds = ((0, False, False, 0), (hLen, True, True, hLen))
+        cache = listArray bnds $ map go $ range bnds :: Array (Int, Bool, Bool, Int) Integer
 
-        go (pos, ltH, ltH', consec9, count0) | pos < hLen = sum lst
+        go (pos, ltH, ltH', consec9) | pos < hLen = sum lst
           where
-            lst = [ searchH ( pos + 1
-                            , ltH || digit < (hUpper ! pos)
-                            , ltH' || digit < (hUpper' ! pos)
-                            , if digit == 9 then consec9 + 1 else 0
-                            , count0 + if digit == 0 then 1 else 0
-                            )
+            lst = [ searchH (pos + 1, ltH || digit < (hUpper ! pos), ltH' || digit < (hUpper' ! pos), if digit == 9 then consec9 + 1 else 0)
                   | digit <- [0..9]
                   , ltH || digit <= (hUpper ! pos)
                   , ltH' || digit <= (hUpper' ! pos)
                   ]
 
-        go (pos, ltH, ltH', consec9, count0)
-            | not ltH   = searchM (0, (False, ltH'), 0, 0, hLen - count0)
-            | otherwise = searchM (0, (False, ltH'), 0, 0, consec9 + 1)
+        go (pos, ltH, ltH', consec9)
+            | not ltH   = searchM (0, False, ltH', 0, hNonZero)
+            | otherwise = searchM (0, False, ltH', 0, consec9 + 1)
 
-    searchM :: (Int, (Bool, Bool), Int, Int, Int) -> Integer
+    searchM :: (Int, Bool, Bool, Int, Int) -> Integer
     searchM = (cache!)
       where
-        bnds = ((0, (False, False), 0, 0, 0), (maxn, (True, True), maxn, maxn, maxn))
-        cache = listArray bnds $ map go $ range bnds :: Array (Int, (Bool, Bool), Int, Int, Int) Integer
+        bnds = ((0, False, False, 0, 0), (mLen, True, True, mLen, hLen))
+        cache = listArray bnds $ map go $ range bnds :: Array (Int, Bool, Bool, Int, Int) Integer
 
-        go (pos, (ltM, ltM'), consec9, count0, changeH) | pos < mLen = sum lst
+        go (pos, ltM, ltM', consec9, changeH) | pos < mLen = sum lst
           where
-            lst = [ searchM ( pos + 1
-                            , (ltM || digit < (mUpper ! pos) , ltM' || digit < (mUpper' ! pos))
-                            , if digit == 9 then consec9 + 1 else 0
-                            , count0 + if digit == 0 then 1 else 0
-                            , changeH
-                            )
+            lst = [ searchM (pos + 1, ltM || digit < (mUpper ! pos), ltM' || digit < (mUpper' ! pos), if digit == 9 then consec9 + 1 else 0, changeH)
                   | digit <- [0..9]
                   , ltM || digit <= (mUpper ! pos)
                   , ltM' || digit <= (mUpper' ! pos)
                   ]
 
-        go (pos, (ltM, ltM'), consec9, count0, changeH)
+        go (pos, ltM, ltM', consec9, changeH)
             | not ltM'  = 0
-            | not ltM   = if mLen - count0 + changeH >= k then 1 else 0
+            | not ltM   = if mNonZero + changeH >= k then 1 else 0
             | otherwise = if consec9 + 1 >= k then 1 else 0
 
 solve (limit, k, from, to)
