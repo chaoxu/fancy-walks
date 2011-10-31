@@ -80,12 +80,8 @@ solve (n, a)
     | n == 2    = Just ([a !! 0], [a !! 1])
     | otherwise = msum answer
   where
-    h0 = a !! 0
-    h1 = a !! 1
-    h2 = a !! 2
-    t0 = a !! (n - 1)
-    t1 = a !! (n - 2)
-    t2 = a !! (n - 3)
+    h0:h1:h2:_ = a
+    t0:t1:t2:_ = reverse a
     answer = [ solveCase a h0 h1
              , solveCase a h0 h2
              , solveCase a h1 h2
