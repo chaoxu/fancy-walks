@@ -1,4 +1,5 @@
 module InverseFactoring where 
 
+import Control.Applicative
 getTheNumber :: [Int] -> Int
-getTheNumber factors = maximum factors * minimum factors
+getTheNumber = liftA2 (*) maximum minimum
